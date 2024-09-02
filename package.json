@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "npm run create:db && npm run run:migrations && npm run start:app",
+    "start:app": "node ./bin/www",
+    "start:dev": "nodemon --inspect",
+    "create:db": "npx sequelize-cli db:create",
+    "run:migrations": "npx sequelize-cli db:migrate",
+    "drop:db": "npx sequelize-cli db:drop"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -11,6 +16,10 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
