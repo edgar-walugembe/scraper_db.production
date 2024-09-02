@@ -34,6 +34,11 @@ router.get("/getCarFuelType", function (req, res, next) {
   res.send("respond with a resource");
 });
 
+//Price-range
+router.get("/getCarPriceRange", function (req, res, next) {
+  res.send("respond with a resource");
+});
+
 /* POST CAR REQUESTS*/
 
 module.exports = router;
