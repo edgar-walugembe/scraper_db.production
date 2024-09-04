@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       Mileage: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       BodyType: {
         type: DataTypes.STRING,
