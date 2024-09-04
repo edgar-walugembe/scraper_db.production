@@ -102,6 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Cars",
       tableName: "car-table",
+      timestamps: true,
     }
   );
   return Cars;
