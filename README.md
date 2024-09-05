@@ -20,6 +20,8 @@ This backend application is built using **JavaScript**, **MySQL2**, **Sequelize*
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/eedga81711/scraper_db.git
-   cd scraper_db
+   git clone https://github.com/eedga81711/scraper_db.production.git
+   cd scraper_db.production
    ```
+
+## scraper_db.production
