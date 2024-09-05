@@ -43,6 +43,6 @@ router.get("/price-range", function (req, res, next) {
 });
 
 /* POST CAR REQUESTS*/
-router.post("/createNewCar", createNewCar);
+router.post("/new-cars", createNewCar);
 
 module.exports = router;
