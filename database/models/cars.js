@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cars.init(
     {
+      car_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       carId: {
         type: DataTypes.INTEGER,
         primaryKey: true,

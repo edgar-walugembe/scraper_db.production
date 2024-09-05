@@ -3,6 +3,10 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("car-table", {
+      car_url: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       carId: {
         allowNull: false,
         autoIncrement: true,
