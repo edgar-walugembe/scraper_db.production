@@ -11,32 +11,32 @@ router.get("/", fetchAllCars);
 
 /* GENERAL FILTERS */
 //Body-type
-router.get("/getCarBodyType", function (req, res, next) {
+router.get("/getBodyType", function (req, res, next) {
   res.render("car-body-type", { title: "Cars basing on selected Body type" });
 });
 
 //Make
-router.get("/getCarMake", function (req, res, next) {
+router.get("/getMake", function (req, res, next) {
   res.render("car-make", { title: "Cars basing on selected Makes" });
 });
 
 //Model
-router.get("/getCarModel", function (req, res, next) {
+router.get("/getModel", function (req, res, next) {
   res.render("car-model", { title: "Cars basing on selected Models" });
 });
 
 //Year
-router.get("/getCarYear", function (req, res, next) {
+router.get("/getYear", function (req, res, next) {
   res.render("car-year", { title: "Cars basing on selected Years" });
 });
 
 //Fuel-type
-router.get("/getCarFuelType", function (req, res, next) {
+router.get("/getFuelType", function (req, res, next) {
   res.render("car-fuel-type", { title: "Cars basing on selected Fuel type" });
 });
 
 //Price-range
-router.get("/getCarPriceRange", function (req, res, next) {
+router.get("/getPriceRange", function (req, res, next) {
   res.render("car-price-range", {
     title: "Cars basing on selected Price range",
   });
