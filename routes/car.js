@@ -1,18 +1,17 @@
-let express = require("express");
-let router = express.Router();
+const express = require("express");
+const router = express.Router();
+
+//importing functions from the controller
+const { createNewCar, fetchAllCars } = require("../controllers/car-controller");
 
 /* GET CAR REQUESTS */
 
-/* GENERAL FILTERS */
-router.get("/", function (req, res) {
-  res.json({ message: "cars route accessed" });
-});
-
 //All cars
-router.get("/getAllCars", function (req, res, next) {
+router.get("/", function (req, res) {
   res.render("all-cars", { title: "All Cars" });
 });
 
+/* GENERAL FILTERS */
 //Body-type
 router.get("/getCarBodyType", function (req, res, next) {
   res.render("car-body-type", { title: "Cars basing on selected Body type" });
