@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("car_make-table", {
-      id: {
+      makeId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -11,12 +11,11 @@ module.exports = {
       },
       Make: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       Model: {
         type: Sequelize.STRING,
-      },
-      carMakeId: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
