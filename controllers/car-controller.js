@@ -15,8 +15,9 @@ async function createNewCar(req, res) {
 //Get All Cars
 async function fetchAllCars(req, res) {
   try {
-    const cars = await Cars.findAll();
-    return res.status(200).send({ cars });
+    // const cars = await Cars.findAll();
+    // return res.status(200).send({ cars });
+    res.render("all-cars", { title: "All Cars" });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ err });

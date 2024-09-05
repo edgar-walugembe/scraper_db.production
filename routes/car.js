@@ -7,9 +7,7 @@ const { createNewCar, fetchAllCars } = require("../controllers/car-controller");
 /* GET CAR REQUESTS */
 
 //All cars
-router.get("/", function (req, res) {
-  res.render("all-cars", { title: "All Cars" });
-});
+router.get("/", fetchAllCars);
 
 /* GENERAL FILTERS */
 //Body-type
@@ -45,5 +43,6 @@ router.get("/getCarPriceRange", function (req, res, next) {
 });
 
 /* POST CAR REQUESTS*/
+router.post("/createNewCar", createNewCar);
 
 module.exports = router;
