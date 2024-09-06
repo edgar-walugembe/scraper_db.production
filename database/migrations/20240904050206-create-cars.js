@@ -9,9 +9,8 @@ module.exports = {
       },
       carId: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       Location: {
         type: Sequelize.STRING,
