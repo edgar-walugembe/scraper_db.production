@@ -73,7 +73,7 @@ module.exports = {
         allowNull: false,
       },
       Description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
       VIN: {
