@@ -4,10 +4,16 @@ require("dotenv").config();
 
 //Create New Car
 const cities = [
-  { name: "Calgary", url: process.env.API_CALGARY },
-  { name: "Seattle", url: process.env.API_SEATTLE },
-  { name: "Vancouver", url: process.env.API_VANCOUVER },
-  { name: "Victoria", url: process.env.API_VICTORIA },
+  {
+    name: "Calgary",
+    urls: [
+      process.env.API_MASERATI_CALGARY,
+      process.env.API_AUTOTRADER_CALGARY,
+    ],
+  },
+  { name: "Seattle", urls: [process.env.API_MASERATI_SEATTLE] },
+  { name: "Vancouver", urls: [process.env.API_MASERATI_VANCOUVER] },
+  { name: "Victoria", urls: [process.env.API_MASERATI_VICTORIA] },
 ];
 
 async function createNewCar(req, res) {
@@ -15,38 +21,39 @@ async function createNewCar(req, res) {
     const savedCars = [];
 
     for (let city of cities) {
-      const response = await axios.get(city.url);
-      const carData = response.data;
+      for (let url of city.urls) {
+        const response = await axios.get(url);
+        const carData = response.data;
 
-      for (let car of carData) {
-        const savedCar = await Cars.create({
-          car_url: car.car_url,
-          carId: car.car_id,
-          Location: car.Location || "",
-          Make: car.Make || "",
-          Model: car.Model || "",
-          Year: parseInt(car.Year) || "",
-          Price: car.Price ? car.Price.replace(/,/g, "") : "",
-          BodyType: car.BodyType || "",
-          Transmission: car.Transmission || "",
-          DriveTrain: car.Drivetrain || "",
-          FuelType: car.FuelType || "",
-          CoverImage: car.CoverImage || "",
-          OtherCarImages: car.otherCarImages || "",
-          // Optional fields, setting to blank
-          Trim: car.Trim || "",
-          Mileage: car.Mileage || "",
-          Exterior_Color: car.ExteriorColor || "",
-          Interior_Color: car.InteriorColor || "",
-          Description: car.Description || "",
-          VIN: car.VIN || "",
-          Doors: car.Doors || "",
-          Seats: car.Seats || "",
-          Engine: car.Engine || "",
-          Stock_Number: car.Stock_Number || "",
-        });
+        for (let car of carData) {
+          const savedCar = await Cars.create({
+            car_url: car.car_url,
+            carId: car.car_id,
+            Location: car.Location || "",
+            Make: car.Make || "",
+            Model: car.Model || "",
+            Year: parseInt(car.Year) || "",
+            Price: car.Price ? car.Price.replace(/,/g, "") : "",
+            BodyType: car.BodyType || "",
+            Transmission: car.Transmission || "",
+            DriveTrain: car.Drivetrain || "",
+            FuelType: car.FuelType || "",
+            CoverImage: car.CoverImage || "",
+            OtherCarImages: car.otherCarImages || "",
+            Trim: car.Trim || "", // Consistent with your preference
+            Mileage: car.Mileage || "",
+            Exterior_Color: car.ExteriorColor || "",
+            Interior_Color: car.InteriorColor || "",
+            Description: car.Description || "",
+            VIN: car.VIN || "",
+            Doors: car.Doors || "",
+            Seats: car.Seats || "",
+            Engine: car.Engine || "",
+            Stock_Number: car.Stock_Number || "",
+          });
 
-        savedCars.push(savedCar);
+          savedCars.push(savedCar);
+        }
       }
     }
 
@@ -69,7 +76,26 @@ async function fetchAllCars(req, res) {
   }
 }
 
+//Get Selected Car
+async function getSelectedCars(req, res) {
+  const { carId } = req.params;
+
+  try {
+    const car = await Cars.findByPk(carId);
+
+    if (!car) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+
+    return res.status(200).send({ car });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 module.exports = {
   createNewCar,
   fetchAllCars,
+  getSelectedCars,
 };

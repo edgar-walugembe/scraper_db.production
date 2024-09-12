@@ -2,12 +2,19 @@ const express = require("express");
 const router = express.Router();
 
 //importing functions from the controller
-const { createNewCar, fetchAllCars } = require("../controllers/car-controller");
+const {
+  createNewCar,
+  fetchAllCars,
+  getSelectedCars,
+} = require("../controllers/car-controller");
 
 /* GET CAR REQUESTS */
 
 //All cars
 router.get("/", fetchAllCars);
+
+//Selected car
+router.get("/:carId", getSelectedCars);
 
 /* GENERAL FILTERS */
 //Body-type
