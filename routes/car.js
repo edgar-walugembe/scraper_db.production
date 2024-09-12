@@ -58,7 +58,7 @@ router.post("/new-cars", createNewCar);
 const url = "https://scraper-db.onrender.com/cars/new-cars";
 
 cron.schedule(
-  "0 6 * * *",
+  "0 10 * * *",
   async () => {
     try {
       const response = await axios.post(url);
