@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const axios = require("axios");
+const cron = require("node-cron");
 
 //importing functions from the controller
 const {
@@ -51,5 +53,23 @@ router.get("/price-range", function (req, res, next) {
 
 /* POST CAR REQUESTS*/
 router.post("/new-cars", createNewCar);
+
+// Schedule to run daily at 6:00 AM
+const url = "https://scraper-db.onrender.com/cars/new-cars";
+
+cron.schedule(
+  "0 6 * * *",
+  async () => {
+    try {
+      const response = await axios.post(url);
+      console.log("Daily car POST request successful", response.data);
+    } catch (error) {
+      console.error("Error with daily POST request:", error);
+    }
+  },
+  {
+    timezone: "America/Toronto",
+  }
+);
 
 module.exports = router;
