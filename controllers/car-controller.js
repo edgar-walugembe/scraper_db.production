@@ -26,33 +26,41 @@ async function createNewCar(req, res) {
         const carData = response.data;
 
         for (let car of carData) {
-          const savedCar = await Cars.create({
-            car_url: car.car_url,
-            carId: car.car_id,
-            Location: car.Location || "",
-            Make: car.Make || "",
-            Model: car.Model || "",
-            Year: parseInt(car.Year) || "",
-            Price: car.Price ? car.Price.replace(/,/g, "") : "",
-            BodyType: car.BodyType || "",
-            Transmission: car.Transmission || "",
-            DriveTrain: car.Drivetrain || "",
-            FuelType: car.FuelType || "",
-            CoverImage: car.CoverImage || "",
-            OtherCarImages: car.otherCarImages || "",
-            Trim: car.Trim || "", // Consistent with your preference
-            Mileage: car.Mileage || "",
-            Exterior_Color: car.ExteriorColor || "",
-            Interior_Color: car.InteriorColor || "",
-            Description: car.Description || "",
-            VIN: car.VIN || "",
-            Doors: car.Doors || "",
-            Seats: car.Seats || "",
-            Engine: car.Engine || "",
-            Stock_Number: car.Stock_Number || "",
+          // Check if the car_url already exists in the database
+          const existingCar = await Cars.findOne({
+            where: { car_url: car.car_url },
           });
 
-          savedCars.push(savedCar);
+          if (!existingCar) {
+            // Only create and save the car if it does not already exist
+            const savedCar = await Cars.create({
+              car_url: car.car_url,
+              carId: car.car_id,
+              Location: car.Location || "",
+              Make: car.Make || "",
+              Model: car.Model || "",
+              Year: parseInt(car.Year) || "",
+              Price: car.Price ? car.Price.replace(/,/g, "") : "",
+              BodyType: car.BodyType || "",
+              Transmission: car.Transmission || "",
+              DriveTrain: car.Drivetrain || "",
+              FuelType: car.FuelType || "",
+              CoverImage: car.CoverImage || "",
+              OtherCarImages: car.otherCarImages || "",
+              Trim: car.Trim || "", // Consistent with your preference
+              Mileage: car.Mileage || "",
+              Exterior_Color: car.ExteriorColor || "",
+              Interior_Color: car.InteriorColor || "",
+              Description: car.Description || "",
+              VIN: car.VIN || "",
+              Doors: car.Doors || "",
+              Seats: car.Seats || "",
+              Engine: car.Engine || "",
+              Stock_Number: car.Stock_Number || "",
+            });
+
+            savedCars.push(savedCar);
+          }
         }
       }
     }
