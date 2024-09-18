@@ -6,19 +6,33 @@ const Sequelize = require("sequelize");
 const process = require("process");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.js")[env];
+// const config = require(__dirname + "/../config/config.js")[env];
+require("dotenv").config();
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+if (true) {
+  sequelize = new Sequelize(process.env.DB_URL,{
+    dialectOptions: {
+      ssl: {
+        require: true, 
+        rejectUnauthorized: false 
+      }, 
+      dialect: "postgres",
+    }
+  });
+
 } else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
+  sequelize = new Sequelize(process.env.DB_URL,{
+    dialectOptions: {
+      ssl: {
+        require: true, 
+        rejectUnauthorized: false 
+      },
+      dialect: "postgres",
+    }
+  });
+
 }
 
 fs.readdirSync(__dirname)
@@ -43,6 +57,16 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
+
+const checks = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+checks();
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

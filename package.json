@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run create:db && npm run run:migrations && npm run start:app",
+    "start:prod": "npm run run:migrations && npm run start:app",
     "start:app": "node ./bin/www",
     "start:dev": "nodemon --inspect",
     "create:db": "npx sequelize-cli db:create",
@@ -21,6 +22,8 @@
     "morgan": "~1.9.1",
     "mysql2": "^3.11.0",
     "node-cron": "^3.0.3",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2"
   },
