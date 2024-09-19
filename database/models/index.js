@@ -10,30 +10,15 @@ const env = process.env.NODE_ENV || "development";
 require("dotenv").config();
 const db = {};
 
-let sequelize;
-if (true) {
-  sequelize = new Sequelize(process.env.DB_URL,{
-    dialectOptions: {
-      ssl: {
-        require: true, 
-        rejectUnauthorized: false 
-      }, 
-      dialect: "postgres",
-    }
-  });
-
-} else {
-  sequelize = new Sequelize(process.env.DB_URL,{
-    dialectOptions: {
-      ssl: {
-        require: true, 
-        rejectUnauthorized: false 
-      },
-      dialect: "postgres",
-    }
-  });
-
-}
+const sequelize = new Sequelize(process.env.DB_URL, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  dialect: "postgres",
+});
 
 fs.readdirSync(__dirname)
   .filter((file) => {
