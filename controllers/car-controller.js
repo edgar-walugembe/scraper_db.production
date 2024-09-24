@@ -87,7 +87,7 @@ async function fetchAllCars(req, res) {
 //Get Selected Car
 async function getSelectedCars(req, res) {
   //const carId = req.params.carId;
-  const carId = req.query.carId;
+  const { carId } = req.query;
   console.log(`carId is: ${carId}`);
 
   try {
