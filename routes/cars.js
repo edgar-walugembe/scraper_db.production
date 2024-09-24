@@ -10,7 +10,7 @@ const {
 
 router.get("/", fetchAllCars);
 
-router.get("/car", getSelectedCars);
+router.get("/:carId", getSelectedCars);
 
 router.get("/body-type", function (req, res, next) {
   res.render("car-body-type", { title: "Cars basing on selected Body type" });
