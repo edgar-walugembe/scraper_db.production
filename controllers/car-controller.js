@@ -75,8 +75,7 @@ async function createNewCar(req, res) {
 //Get All Cars
 async function fetchAllCars(req, res) {
   try {
-    let cars = {};
-    cars = await Cars.findAll();
+    const cars = await Cars.findAll();
     return res.status(200).send({ cars });
     // res.render("all-cars", { title: "All Cars" });
   } catch (err) {
@@ -87,17 +86,17 @@ async function fetchAllCars(req, res) {
 
 //Get Selected Car
 async function getSelectedCars(req, res) {
-  const carId = req.params.carId;
+  const carId = req.query.carId;
   console.log(`carId is: ${carId}`);
 
   try {
-    const {} = await Cars.findOne({ where: { carId } });
+    const car = await Cars.findOne({ where: { carId: carId } });
 
-    if (!{}) {
+    if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }
 
-    return res.status(200).send({});
+    return res.status(200).send({ car });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
