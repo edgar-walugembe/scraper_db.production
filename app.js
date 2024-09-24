@@ -6,6 +6,7 @@ const logger = require("morgan");
 require("dotenv").config();
 
 const indexRouter = require("./routes/index");
+const carsRouter = require("./routes/cars");
 const carRouter = require("./routes/car");
 
 const app = express();
@@ -21,7 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/cars", carRouter);
+app.use("/cars", carsRouter);
+app.use("/car", carRouter);
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {
