@@ -75,8 +75,8 @@ async function createNewCar(req, res) {
 //Get All Cars
 async function fetchAllCars(req, res) {
   try {
-    const cars = await Cars.findAll();
-    return res.status(200).send({ cars });
+    const {} = await Cars.findAll();
+    return res.status(200).send({});
     // res.render("all-cars", { title: "All Cars" });
   } catch (err) {
     console.error(err);
@@ -90,13 +90,13 @@ async function getSelectedCars(req, res) {
   console.log(`carId is: ${carId}`);
 
   try {
-    const car = await Cars.findOne({ where: { carId } });
+    const {} = await Cars.findOne({ where: { carId } });
 
-    if (!car) {
+    if (!{}) {
       return res.status(404).json({ message: "Car not found" });
     }
 
-    return res.status(200).send({ car });
+    return res.status(200).send({});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
