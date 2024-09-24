@@ -87,9 +87,10 @@ async function fetchAllCars(req, res) {
 //Get Selected Car
 async function getSelectedCars(req, res) {
   const { carId } = req.params;
+  console.log(`carId is: ${carId}`);
 
   try {
-    const car = await Cars.findByPk(carId);
+    const car = await Cars.findOne({ where: { carId: carId } });
 
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
