@@ -76,7 +76,7 @@ async function createNewCar(req, res) {
 async function fetchAllCars(req, res) {
   try {
     const cars = await Cars.findAll();
-    return res.status(200).json({ cars });
+    return res.status(200).json(cars);
     // res.render("all-cars", { title: "All Cars" });
   } catch (err) {
     console.error(err);
@@ -87,7 +87,7 @@ async function fetchAllCars(req, res) {
 //Get Selected Car
 async function getSelectedCars(req, res) {
   try {
-    const carId = req.query.carId;
+    const { carId } = req.query;
 
     if (!carId) {
       return res
