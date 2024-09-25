@@ -96,7 +96,7 @@ async function getSelectedCars(req, res) {
       return res.status(404).json({ message: "Car not found" });
     }
 
-    return res.status(200).json({ car });
+    return res.status(200).json(car);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
