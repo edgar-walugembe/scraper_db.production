@@ -95,7 +95,7 @@ async function getSelectedCars(req, res) {
         .json({ message: "carId query parameter is required" });
     }
 
-    const car = await Car.findOne({ where: { id: carId } });
+    const car = await Cars.findOne({ where: { carId: carId } });
 
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
