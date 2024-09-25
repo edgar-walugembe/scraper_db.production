@@ -86,11 +86,16 @@ async function fetchAllCars(req, res) {
 
 //Get Selected Car
 async function getSelectedCars(req, res) {
-  const { carId } = req.params;
-  console.log(`carId is: ${carId}`);
-
   try {
-    const car = await Cars.findOne({ where: { carId: carId } });
+    const carId = req.query.carId;
+
+    if (!carId) {
+      return res
+        .status(400)
+        .json({ message: "carId query parameter is required" });
+    }
+
+    const car = await Car.findOne({ where: { id: carId } });
 
     if (!car) {
       return res.status(404).json({ message: "Car not found" });
@@ -98,8 +103,7 @@ async function getSelectedCars(req, res) {
 
     return res.status(200).json(car);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Error fetching car", error });
   }
 }
 
