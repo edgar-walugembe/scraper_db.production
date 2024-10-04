@@ -37,7 +37,7 @@ module.exports = {
         allowNull: false,
       },
       Year: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       Price: {
