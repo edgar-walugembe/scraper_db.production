@@ -1,67 +1,50 @@
 const { Cars, Sequelize, sequelize } = require("../database/models");
-const axios = require("axios");
 require("dotenv").config();
 
-//Create New Car
-const cities = [
-  {
-    name: "Calgary",
-    urls: [
-      process.env.API_MASERATI_CALGARY,
-      process.env.API_AUTOTRADER_CALGARY,
-    ],
-  },
-  { name: "Seattle", urls: [process.env.API_MASERATI_SEATTLE] },
-  { name: "Vancouver", urls: [process.env.API_MASERATI_VANCOUVER] },
-  { name: "Victoria", urls: [process.env.API_MASERATI_VICTORIA] },
-];
-
-async function createNewCar(req, res) {
+async function createNewCars(req, res) {
   try {
+    const { cars } = req.body;
+
+    if (!Array.isArray(carData) || carData.length === 0) {
+      return res.status(400).send({ error: "No car data provided" });
+    }
+
     const savedCars = [];
 
-    for (let city of cities) {
-      for (let url of city.urls) {
-        const response = await axios.get(url);
-        const carData = response.data;
+    for (let car of cars) {
+      const existingCar = await Cars.findOne({
+        where: { car_url: car.car_url },
+      });
 
-        for (let car of carData) {
-          // Check if the car_url already exists in the database
-          const existingCar = await Cars.findOne({
-            where: { car_url: car.car_url },
-          });
+      if (!existingCar) {
+        // Only create and save the car if it does not already exist
+        const savedCar = await Cars.create({
+          car_url: car.car_url,
+          carId: car.car_id,
+          Location: car.Location || "",
+          Make: car.Make || "",
+          Model: car.Model || "",
+          Year: parseInt(car.Year) || "",
+          Price: car.Price ? car.Price.replace(/,/g, "") : "",
+          BodyType: car.BodyType || "",
+          Transmission: car.Transmission || "",
+          DriveTrain: car.Drivetrain || "",
+          FuelType: car.FuelType || "",
+          CoverImage: car.CoverImage || "",
+          OtherCarImages: car.otherCarImages || "",
+          Trim: car.Trim || "", // Consistent with your preference
+          Mileage: car.Mileage || "",
+          Exterior_Color: car.ExteriorColor || "",
+          Interior_Color: car.InteriorColor || "",
+          Description: car.Description || "",
+          VIN: car.VIN || "",
+          Doors: car.Doors || "",
+          Seats: car.Seats || "",
+          Engine: car.Engine || "",
+          Stock_Number: car.Stock_Number || "",
+        });
 
-          if (!existingCar) {
-            // Only create and save the car if it does not already exist
-            const savedCar = await Cars.create({
-              car_url: car.car_url,
-              carId: car.car_id,
-              Location: car.Location || "",
-              Make: car.Make || "",
-              Model: car.Model || "",
-              Year: parseInt(car.Year) || "",
-              Price: car.Price ? car.Price.replace(/,/g, "") : "",
-              BodyType: car.BodyType || "",
-              Transmission: car.Transmission || "",
-              DriveTrain: car.Drivetrain || "",
-              FuelType: car.FuelType || "",
-              CoverImage: car.CoverImage || "",
-              OtherCarImages: car.otherCarImages || "",
-              Trim: car.Trim || "", // Consistent with your preference
-              Mileage: car.Mileage || "",
-              Exterior_Color: car.ExteriorColor || "",
-              Interior_Color: car.InteriorColor || "",
-              Description: car.Description || "",
-              VIN: car.VIN || "",
-              Doors: car.Doors || "",
-              Seats: car.Seats || "",
-              Engine: car.Engine || "",
-              Stock_Number: car.Stock_Number || "",
-            });
-
-            savedCars.push(savedCar);
-          }
-        }
+        savedCars.push(savedCar);
       }
     }
 
@@ -108,7 +91,7 @@ async function getSelectedCars(req, res) {
 }
 
 module.exports = {
-  createNewCar,
+  createNewCars,
   fetchAllCars,
   getSelectedCars,
 };

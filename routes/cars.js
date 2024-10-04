@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const cron = require("node-cron");
 const {
-  createNewCar,
+  createNewCars,
   fetchAllCars,
   getSelectedCars,
 } = require("../controllers/car-controller");
@@ -38,7 +38,7 @@ router.get("/price-range", function (req, res, next) {
   });
 });
 
-router.post("/new-cars", createNewCar);
+router.post("/new-cars", createNewCars);
 
 // Schedule to run daily at 6:00 AM
 const url = "https://scraper-db.onrender.com/cars/new-cars";
