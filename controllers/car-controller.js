@@ -5,7 +5,7 @@ async function createNewCars(req, res) {
   try {
     const { cars } = req.body;
 
-    if (!Array.isArray(carData) || carData.length === 0) {
+    if (!Array.isArray(cars) || cars.length === 0) {
       return res.status(400).send({ error: "No car data provided" });
     }
 
