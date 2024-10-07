@@ -45,6 +45,8 @@ async function createNewCars(req, res) {
         });
 
         savedCars.push(savedCar);
+      } else {
+        console.log(`Car with url: ${car.car_url} already exists in database`);
       }
     }
 
