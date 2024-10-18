@@ -30,7 +30,7 @@ async function createNewCars(req, res) {
           Transmission: car.Transmission || "Not Available",
           DriveTrain: car.Drivetrain || "Not Available",
           FuelType: car.FuelType || "Not Available",
-          CoverImage: car.CoverImage || "Not Available",
+          CoverImage: car.CoverImage || "https://www.jpsubarunorthshore.com/wp-content/themes/convertus-achilles/achilles/assets/images/srp-placeholder/PV.jpg",
           OtherCarImages: car.otherCarImages || "Not Available",
           Trim: car.Trim || "Not Available",
           Mileage: car.Mileage || "Not Available",
@@ -63,7 +63,6 @@ async function fetchAllCars(req, res) {
   try {
     const cars = await Cars.findAll();
     return res.status(200).json(cars);
-    // res.render("all-cars", { title: "All Cars" });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ err });

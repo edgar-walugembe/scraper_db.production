@@ -40,22 +40,4 @@ router.get("/price-range", function (req, res, next) {
 
 router.post("/new-cars", createNewCars);
 
-// Schedule to run daily at 6:00 AM
-const url = "https://scraper-db.onrender.com/cars/new-cars";
-
-cron.schedule(
-  "0 10 * * *",
-  async () => {
-    try {
-      const response = await axios.post(url);
-      console.log("Daily car POST request successful", response.data);
-    } catch (error) {
-      console.error("Error with daily POST request:", error);
-    }
-  },
-  {
-    timezone: "America/Toronto",
-  }
-);
-
 module.exports = router;
